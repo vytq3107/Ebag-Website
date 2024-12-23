@@ -1,8 +1,8 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "admin";
-$password = "taphoahungvy@#.com";
+$servername = "localhost"; //edit
+$username = "admin"; //edit
+$password = "admin"; //edit
 $dbname = "test";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-// Kiểm tra xem người dùng đã đăng nhập hay chưa
+//Kiểm tra đăng nhập
 function isLoggedIn() {
     return isset($_SESSION['user_id']);
 }
@@ -19,7 +19,7 @@ function isLoggedIn() {
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
-// Lấy user_id từ phiên làm việc
+// Lấy user_id
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
 // Truy vấn để lấy cart_id và tổng giá từ bảng Carts
@@ -31,10 +31,8 @@ $stmt->bind_result($cart_id, $total_price);
 $stmt->fetch();
 $stmt->close();
 
-
-// Xử lý yêu cầu POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id']) && isset($_POST['quantity'])) {
-    // Lấy thông tin product_id và quantity từ yêu cầu POST
+    // Lấy thông tin product_id và quantity
     $product_id = intval($_POST['product_id']);
     $new_quantity = intval($_POST['quantity']);
 
@@ -88,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id']) && isse
     }
 }
 
-// Xử lý yêu cầu POST khi người dùng xóa sản phẩm
+// Xử lý request xóa sản phẩm trong cart
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_product']) && isset($_POST['product_id'])) {
     $product_id = intval($_POST['product_id']);
     
@@ -150,9 +148,8 @@ $logoutURL = "logout.php";
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <script>
-        // Hàm để gửi yêu cầu POST khi người dùng thay đổi số lượng
+        // Hàm update số lượng của sản phẩm trong cart
         function updateQuantity(product_id, quantity) {
-            // Gửi yêu cầu POST với thông tin product_id và quantity
             fetch('cart.php', {
                 method: 'POST',
                 headers: {
@@ -163,11 +160,11 @@ $logoutURL = "logout.php";
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    // Cập nhật tổng giá trị giỏ hàng và tổng giá sản phẩm trong giao diện
+                    // Cập nhật tổng giá trị giỏ hàng và tổng giá sản phẩm
                     document.getElementById(`product-${data.product_id}-total`).textContent = data.new_total_price;
                     document.getElementById('cart-total').textContent = `Tổng giá trị giỏ hàng: ${data.cart_total}`;
                 } else {
-                    alert('Có lỗi xảy ra khi cập nhật số lượng.');
+                    alert('lỗi khi cập nhật số lượng.');
                 }
             });
         }
@@ -294,8 +291,7 @@ $logoutURL = "logout.php";
 
         <?php endif; ?>
     </div>
-              
-    <!-- Đóng kết nối cơ sở dữ liệu -->
+
     <?php
         $stmt->close();
         $conn->close();
