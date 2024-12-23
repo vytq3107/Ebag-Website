@@ -1,8 +1,8 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "admin";
-$password = "taphoahungvy@#.com";
+$servername = "localhost"; //edit
+$username = "admin"; //edit
+$password = "admin"; //edit
 $dbname = "test";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -40,16 +40,16 @@ if ($user_id) {
     }
 }
 
-// Xử lý yêu cầu "Thêm vào giỏ hàng"
+//Thêm vào giỏ hàng
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     if (!isLoggedIn()) {
         // Hiển thị modal nếu người dùng chưa đăng nhập
         echo "<script>document.addEventListener('DOMContentLoaded', function() { $('#loginModal').modal('show'); });</script>";
     } else {
-        // Lấy ID sản phẩm từ yêu cầu POST
+        // Lấy ID sản phẩm
         $product_id = intval($_POST['product_id']);
 
-        // Truy vấn thông tin sản phẩm từ cơ sở dữ liệu
+        // Truy vấn thông tin sản phẩm từ database
         $sql = "SELECT price FROM Products WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $product_id);
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         $stmt->fetch();
         $stmt->close();
 
-        // Nếu sản phẩm tồn tại trong cơ sở dữ liệu
+        // Nếu sản phẩm tồn tại trong database
         if ($price) {
             // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
             $sql = "SELECT id, quantity, total_price FROM Cart_Items WHERE cart_id = ? AND product_id = ?";
@@ -355,7 +355,6 @@ $(document).ready(function() {
         });
     });
 </script>
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
