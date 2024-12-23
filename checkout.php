@@ -1,8 +1,8 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "admin";
-$password = "taphoahungvy@#.com";
+$servername = "localhost"; //edit
+$username = "admin"; //edit
+$password = "admin"; //edit
 $dbname = "test";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </nav>
 
-    <!-- Nội dung chính -->
+    <!-- Nội dung -->
     <div class="container my-4">
         <h1 class="text-center mb-4">Thanh toán</h1>
 
