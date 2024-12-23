@@ -1,14 +1,11 @@
 <?php
 session_start();
-
-// Kết nối cơ sở dữ liệu
-$servername = "localhost";
-$username = "admin";
-$password = "taphoahungvy@#.com";
+$servername = "localhost"; //edit
+$username = "admin"; //edit
+$password = "admin"; //edit
 $dbname = "test";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Kiểm tra kết nối
 if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
@@ -25,7 +22,7 @@ if ($query) {
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
-    $result = null; // Nếu không có từ khóa tìm kiếm, không truy vấn cơ sở dữ liệu
+    $result = null; 
 }
 ?>
 
@@ -83,7 +80,7 @@ if ($query) {
                     </li>
                 </ul>
 
-                <!-- Các biểu tượng mạng xã hội -->
+                <!-- Mạng xã hội -->
                 <ul class="navbar-social-icons">
                         <li class="nav-item">
                             <a class="nav-link" href="https://www.facebook.com/profile.php?id=61555541295987" target="_blank" aria-label="Facebook">
@@ -111,7 +108,6 @@ if ($query) {
 
         <!-- Hiển thị kết quả tìm kiếm -->
         <?php if ($result && $result->num_rows > 0): ?>
-            <!-- Hiển thị lưới sản phẩm -->
             <div class="row">
                 <!-- Lặp qua các sản phẩm và hiển thị thông tin -->
                 <?php while ($row = $result->fetch_assoc()): ?>
@@ -139,11 +135,8 @@ if ($query) {
                 <?php endwhile; ?>
             </div>
         <?php else: ?>
-            <!-- Không tìm thấy kết quả phù hợp -->
             <h3 class="text-center">Không tìm thấy sản phẩm.</h3>
         <?php endif; ?>
-
-        <!-- Đóng kết nối cơ sở dữ liệu -->
         <?php
             $stmt->close();
             $conn->close();
